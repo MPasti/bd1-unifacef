@@ -6,6 +6,7 @@ CREATE TABLE tb_projetos(
 	CONSTRAINT pk_tb_projetos_cod_projeto PRIMARY KEY(cod_projeto)
 );
 
+
 --criando tabela de departamentos
 -- restricoes: pk na coluna sigla
 CREATE TABLE tb_departamentos(
@@ -17,7 +18,7 @@ CREATE TABLE tb_departamentos(
 -- restricoes: pk matricula_func, fk sigla_dep
 CREATE TABLE tb_funcionarios(
 	matricula_funcionarios VARCHAR(20),
-	sigla VARCHAR(5),
+	sigla VARCHAR(5) CONSTRAINT nm_tb_func_sigla_dep NOT NULL,
 	nome_funcionario VARCHAR(40),
 	data_admissao DATE,
 	data_nascimento DATE,
@@ -27,6 +28,8 @@ CREATE TABLE tb_funcionarios(
 	REFERENCES tb_departamentos(sigla)
 );
 
+--criando tabela de alocado (relação)
+-- restricoes: pk (matricula e codigo)
 CREATE TABLE tb_alocado(
 	matricula_funcionarios VARCHAR(20),
 	cod_projeto INTEGER,
@@ -36,3 +39,5 @@ CREATE TABLE tb_alocado(
 	CONSTRAINT fk_tb_projetos_cod_projeto FOREIGN KEY(cod_projeto)
 	REFERENCES tb_projetos(cod_projeto)
 );
+
+DROP TABLE tb_funcionarios CASCADE
